@@ -1,0 +1,66 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrueFrame packages</title>
+<style>
+ body { font: 14px/1.4 Tahoma, Verdana, sans-serif; background: #3a6ea5; margin: 0; padding: 24px; }
+ .win { max-width: 860px; margin: auto; background: #ece9d8; border: 1px solid #000; box-shadow: 2px 2px 0 #00000055; }
+ .title { background: linear-gradient(#0a246a, #3a6ea5); color: #fff; font-weight: bold; padding: 4px 8px; }
+ .body { padding: 12px 16px; }
+ code { background: #fff; border: 1px solid #808080; padding: 1px 4px; }
+ table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #808080; }
+ th { background: #ece9d8; text-align: left; border-bottom: 1px solid #808080; padding: 4px 6px; font-weight: normal; }
+ td { padding: 6px; border-bottom: 1px solid #e6e9f0; vertical-align: top; }
+ td.i { width: 32px; } canvas { width: 32px; height: 32px; image-rendering: pixelated; }
+ .dim { color: #555; } .name { font-weight: bold; }
+</style></head><body>
+<div class="win"><div class="title">TrueFrame packages</div><div class="body">
+<p>In TrueFrame, point the Package Manager here - in the Terminal:</p>
+<p><code>pkg repo <span id="repo"></span></code> &nbsp;then&nbsp; <code>pkg update</code></p>
+<p class="dim"><span id="count">Loading...</span> - <a href="index.txt">index.txt</a></p>
+<table id="list"><tr><th></th><th>Program</th><th>Version</th><th>Category</th><th>Size</th></tr></table>
+</div></div>
+<script>
+/* This page only shows index.txt; TrueFrame reads index.txt, the .tfp files
+ * and icons/*.raw straight from here. */
+const base = location.href.replace(/[?#].*$/, '').replace(/\/(index\.html)?$/, '');
+document.getElementById('repo').textContent = base;
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+fetch('index.txt').then(r => r.text()).then(text => {
+  const pkgs = [];
+  let cur = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line[0] === '#' || line[0] === ';') continue;
+    const sec = line.match(/^\[(.+)\]$/);
+    if (sec) { cur = { name: sec[1] }; pkgs.push(cur); continue; }
+    const eq = line.indexOf('=');
+    if (cur && eq > 0) cur[line.slice(0, eq).trim()] = line.slice(eq + 1).trim();
+  }
+  document.getElementById('count').textContent = pkgs.length + ' package(s)';
+  const table = document.getElementById('list');
+  for (const p of pkgs) {
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="i">' + (p.icon ? '<canvas width="32" height="32"></canvas>' : '') + '</td>' +
+      '<td><span class="name">' + esc(p.title || p.name) + '</span> <span class="dim">(' + esc(p.name) + ')</span><br>' +
+      esc(p.description) +
+      (p.depends ? '<br><span class="dim">Needs ' + esc(p.depends) + '</span>' : '') +
+      (!p.app ? '<br><span class="dim">No program of its own - for other packages</span>' : '') + '</td>' +
+      '<td>' + esc(p.version) + '</td><td>' + esc(p.category) + '</td>' +
+      '<td><a href="' + esc(p.file) + '">' + (Number(p.size || 0) / 1024).toFixed(1) + '&nbsp;KB</a></td>';
+    table.appendChild(tr);
+    const c = tr.querySelector('canvas');
+    if (c) fetch(p.icon).then(r => r.arrayBuffer()).then(b => {
+      /* 32x32 ARGB, little-endian - as TrueFrame reads it */
+      const px = new Uint32Array(b), g = c.getContext('2d'), img = g.createImageData(32, 32);
+      for (let i = 0; i < 1024 && i < px.length; i++) {
+        const v = px[i];
+        img.data.set([(v >>> 16) & 255, (v >>> 8) & 255, v & 255, v >>> 24], i * 4);
+      }
+      g.putImageData(img, 0, 0);
+    });
+  }
+});
+</script>
+</body></html>

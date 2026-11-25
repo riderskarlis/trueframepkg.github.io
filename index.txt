@@ -1,0 +1,161 @@
+# TrueFrame package index - made by tools/pkgserver.py
+
+[tf-desktop]
+title=TrueFrame Desktop
+version=2.0
+category=System
+depends=tf-images>=1.0, tf-archives>=1.0, tf-render>=1.0, tf-midi>=1.0, tf-network>=1.0, tf-icons>=1.0
+description=Private TF desktop, Files, Settings, dialogs, taskbar and Package Manager.
+file=tf-desktop-2.0.tfp
+size=500219
+
+[tf-icons]
+title=TrueFrame Icons
+version=1.2
+category=Data
+description=Standard desktop, folder, drive and file-type image assets.
+file=tf-icons-1.2.tfp
+size=7770
+
+[tf-network]
+title=Network Protocols
+version=1.0
+category=Runtimes
+description=Isolated Ethernet/IP, TCP/UDP, DHCP/DNS, HTTP/TLS and FTP service.
+file=tf-network-1.0.tfp
+size=107194
+
+[tf-midi]
+title=MIDI Synthesizer
+version=1.0
+category=Runtimes
+description=Isolated MIDI parser, sequencer and software synthesizer producing standard PCM audio.
+file=tf-midi-1.0.tfp
+size=15657
+
+[tf-render]
+title=TinyGL Renderer
+version=1.0
+category=Runtimes
+description=Isolated software 3D rendering services with private textures, lists and framebuffers.
+file=tf-render-1.0.tfp
+size=46998
+
+[tf-images]
+title=Image Decoders
+version=1.0
+category=Runtimes
+description=Restricted PNG, JPEG, GIF, BMP and ICO decoder used by TrueFrame and applications.
+file=tf-images-1.0.tfp
+size=31975
+
+[tf-archives]
+title=ZIP Archive Support
+version=1.0
+category=Runtimes
+description=Restricted ZIP/deflate reader for Files and Package Manager. Streams archives without loading them whole.
+file=tf-archives-1.0.tfp
+size=17148
+
+[audioplayer]
+title=Audio Player
+version=1.8
+category=Multimedia
+app=audioplayer.app
+depends=tf-images>=1.0, tf-midi>=1.0
+description=WAV/MIDI player with playlists, fullscreen and visualizations: spectrum, oscilloscope, spectrogram, level and VU meters, vectorscope.
+file=audioplayer-1.8.tfp
+size=79414
+icon=icons/audioplayer.raw
+
+[videoplayer]
+title=Video Player
+version=1.1
+category=Multimedia
+app=videoplayer.app
+depends=tf-images>=1.0
+description=MP4 playback with sound, seeking and fullscreen.
+file=videoplayer-1.1.tfp
+size=164456
+icon=icons/videoplayer.raw
+
+[dictionary]
+title=Dictionary
+version=1.0
+category=Accessories
+app=dictionary.app
+depends=tf-images>=1.0, tf-network>=1.0
+description=Latvian dictionary using the public Tezaurs API.
+file=dictionary-1.0.tfp
+size=71650
+icon=icons/dictionary.raw
+
+[truewww]
+title=TrueWWW
+version=1.0
+category=Internet
+app=truewww.app
+depends=tf-images>=1.0, tf-network>=1.0
+description=Web browser with HTML, CSS and images.
+file=truewww-1.0.tfp
+size=149442
+icon=icons/truewww.raw
+
+[minesweeper]
+title=Minesweeper
+version=1.0
+category=Games
+app=minesweeper.app
+description=Clear the minefield: three levels, best times, chords and flags.
+file=minesweeper-1.0.tfp
+size=12789
+icon=icons/minesweeper.raw
+
+[solitaire]
+title=Solitaire
+version=1.0
+category=Games
+app=solitaire.app
+description=Klondike patience with drag-and-drop cards and little sounds.
+file=solitaire-1.0.tfp
+size=12246
+icon=icons/solitaire.raw
+
+[gameengine]
+title=Game Engine
+version=1.0
+category=Development
+app=gameengine.app
+depends=tf-render>=1.0
+description=Build small 3D scenes with scripted objects and playtest them.
+file=gameengine-1.0.tfp
+size=16603
+
+[perfmon]
+title=System Monitor
+version=1.0
+category=System
+app=perfmon.app
+description=Live CPU, memory and per-process graphs.
+file=perfmon-1.0.tfp
+size=8588
+
+[pong]
+title=Pong
+version=1.0
+category=Games
+app=pong.app
+description=The original bat-and-ball game, with a live icon.
+file=pong-1.0.tfp
+size=6090
+icon=icons/pong.raw
+
+[tfjvm]
+title=Java Runtime
+version=1.5
+category=Runtimes
+depends=tf-render>=1.0
+description=tfjvm, the Java virtual machine Java programs (like Minecraft) run on.
+file=tfjvm-1.5.tfp
+size=756465
+icon=icons/tfjvm.raw
