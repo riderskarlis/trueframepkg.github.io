@@ -7,7 +7,7 @@ category=System
 depends=tf-images>=1.0, tf-archives>=1.0, tf-render>=1.0, tf-midi>=1.0, tf-network>=1.0, tf-icons>=1.0
 description=Private TF desktop, Files, Settings, dialogs, taskbar and Package Manager.
 file=tf-desktop-2.0.tfp
-size=500219
+size=501831
 
 [tf-icons]
 title=TrueFrame Icons
